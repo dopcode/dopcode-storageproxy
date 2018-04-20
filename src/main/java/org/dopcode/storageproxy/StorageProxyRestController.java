@@ -20,7 +20,17 @@ import destiny.service.edm.folder.XFolder;
 @RestController
 public class StorageProxyRestController {
 
-    @PatchMapping("/fileCheckout")
+    @GetMapping("/")
+    public String index() {
+        return "hello! dopcode StorageProxy Server~";
+    }
+    
+    @GetMapping("/get/{id}")
+    public String index(@PathVariable("id") Long id) {
+        return "hello! dopcode StorageProxy Server~ get id: " + id;
+    }
+    
+    @PatchMapping("/fileCheckout/{id}")
     public ResponseEntity<List<XCheckOut>> fileCheckout(@PathVariable("id") Long id) {
         List<XCheckOut> checkOuts = new ArrayList<XCheckOut>();
         XCheckOut checkOut = new XCheckOut();
@@ -31,7 +41,7 @@ public class StorageProxyRestController {
         return new ResponseEntity<List<XCheckOut>>(checkOuts, HttpStatus.OK);
     }
 
-    @PatchMapping("/fileCheckin")
+    @PatchMapping("/fileCheckin/{id}")
     public ResponseEntity<XCheckOut> fileCheckin(@PathVariable("id") Long id) {
         XCheckOut checkOut = new XCheckOut();
         if (checkOut == null) {
@@ -40,7 +50,7 @@ public class StorageProxyRestController {
         return new ResponseEntity<XCheckOut>(checkOut, HttpStatus.OK);
     }
 
-    @GetMapping("/fileDownload")
+    @GetMapping("/fileDownload/{id}")
     public ResponseEntity<XFile> fileDownload(@PathVariable("id") Long id) {
         XFile file = new XFile();
         if (file == null) {
@@ -57,7 +67,7 @@ public class StorageProxyRestController {
         return new ResponseEntity<XFile>(file, HttpStatus.OK);
     }
 
-    @PatchMapping("/fileLock")
+    @PatchMapping("/fileLock/{id}")
     public ResponseEntity<XCheckOut> fileLock(@PathVariable("id") Long id) {
         XCheckOut checkOut = new XCheckOut();
         if (checkOut == null) {
@@ -66,7 +76,7 @@ public class StorageProxyRestController {
         return new ResponseEntity<XCheckOut>(checkOut, HttpStatus.OK);
     }
 
-    @PatchMapping("/fileUnlock")
+    @PatchMapping("/fileUnlock/{id}")
     public ResponseEntity<XCheckOut> fileUnlock(@PathVariable("id") Long id) {
         XCheckOut checkOut = new XCheckOut();
         if (checkOut == null) {
@@ -75,7 +85,7 @@ public class StorageProxyRestController {
         return new ResponseEntity<XCheckOut>(checkOut, HttpStatus.OK);
     }
 
-    @PatchMapping("/fileRename")
+    @PatchMapping("/fileRename/{id}")
     public ResponseEntity<XFile> fileRename(@PathVariable("id") Long id, @RequestBody XFile file) {
         if (file == null) {
             return new ResponseEntity<XFile>(HttpStatus.NO_CONTENT);
@@ -83,7 +93,7 @@ public class StorageProxyRestController {
         return new ResponseEntity<XFile>(file, HttpStatus.OK);
     }
 
-    @PatchMapping("/fileMove")
+    @PatchMapping("/fileMove/{id}")
     public ResponseEntity<XFile> fileMove(@PathVariable("id") Long id, @RequestBody XFile file) {
         if (file == null) {
             return new ResponseEntity<XFile>(HttpStatus.NO_CONTENT);
@@ -99,7 +109,7 @@ public class StorageProxyRestController {
         return new ResponseEntity<XFolder>(folder, HttpStatus.OK);
     }
 
-    @PatchMapping("/folderRename")
+    @PatchMapping("/folderRename/{id}")
     public ResponseEntity<XFolder> folderRename(@PathVariable("id") Long id, @RequestBody XFolder folder) {
         if (folder == null) {
             return new ResponseEntity<XFolder>(HttpStatus.NO_CONTENT);
@@ -107,7 +117,7 @@ public class StorageProxyRestController {
         return new ResponseEntity<XFolder>(folder, HttpStatus.OK);
     }
 
-    @RequestMapping("/folderMove")
+    @RequestMapping("/folderMove/{id}")
     public ResponseEntity<XFolder> folderMove(@PathVariable("id") Long id, @RequestBody XFolder folder) {
         if (folder == null) {
             return new ResponseEntity<XFolder>(HttpStatus.NO_CONTENT);
